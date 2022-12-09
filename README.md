@@ -1,7 +1,8 @@
-# opengl-tutorial
-A Python opengl-tutorial base on PyOpenGL. 
+# Python3 PyOpenGL tutorial
 
 ### This is updated to Python 3.10.  Tested on Ubuntu 22.04 with OpenGL 4.6.
+
+Updated from [this Python2 project](https://github.com/jcteng/python-opengl-tutorial)
 
 [中文说明可以看这里](cn_readme.md)  
 
