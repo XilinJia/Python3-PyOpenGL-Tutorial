@@ -10,11 +10,11 @@ from utils.objLoader import objLoader
 from utils.shaderLoader import Shader
 from utils.textureLoader import textureLoader
 
-
 class Tu01Win(GlutWindow):
 
     class GLContext(object):
         pass
+    
     def init_opengl(self):
         glClearColor(0.0,0,0.4,0)
         glDepthFunc(GL_LESS)
@@ -29,12 +29,11 @@ class Tu01Win(GlutWindow):
         # shader var ids 
         self.context.MVP_ID   = glGetUniformLocation(shader.program,"MVP")
         self.context.Texture_ID =  glGetUniformLocation(shader.program, "myTextureSampler")
-
         
         #texture = textureLoader("resources/tu03/uvmap.dds")
         #model = objLoader("resources/tu03/cube.obj").to_single_index_style()
 
-        texture = textureLoader("resources/tu04/uvmap.dds")		
+        texture = textureLoader("resources/tu04/uvmap.DDS")		
         model = objLoader("resources/tu04/suzanne.obj").to_single_index_style()
         
         self.context.texturebuffer = texture.textureGLID
@@ -59,8 +58,6 @@ class Tu01Win(GlutWindow):
 
         glBufferData(GL_ELEMENT_ARRAY_BUFFER,len(model.indices)*2,(GLushort * len(model.indices))(*model.indices),GL_STATIC_DRAW)
 
-    
-
     def calc_MVP(self,width=1920,height=1080):
 
         self.context.Projection = glm.perspective(glm.radians(45.0),float(width)/float(height),0.1,1000.0)
@@ -79,7 +76,7 @@ class Tu01Win(GlutWindow):
 
     def ogl_draw(self):
 
-        print "draw++"
+        # print("draw++")
         #print self.context.MVP
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
@@ -107,7 +104,6 @@ class Tu01Win(GlutWindow):
             GL_UNSIGNED_SHORT, #  // type
             None          #// element array buffer offset
         )		
-        
 
         glDisableVertexAttribArray(0)
         glDisableVertexAttribArray(1)

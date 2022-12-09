@@ -45,6 +45,7 @@ g_vertex_buffer_data = [
 		 1.0, 1.0, 1.0,
 		-1.0, 1.0, 1.0,
 		 1.0,-1.0, 1.0]
+
 g_color_buffer_data = [ 
 		0.583,  0.771,  0.014,
 		0.609,  0.115,  0.436,
@@ -84,8 +85,6 @@ g_color_buffer_data = [
 		0.982,  0.099,  0.879
 ]        
 
-
-
 class Tu01Win(GlutWindow):
 
 	class GLContext(object):
@@ -99,17 +98,14 @@ class Tu01Win(GlutWindow):
 	def init_context(self):
 		self.context = self.GLContext()
 
-
 		self.shader = shader = Shader()
 		shader.initShaderFromGLSL(["glsl/tu01/vertex.glsl"],["glsl/tu01/fragment.glsl"])
 
 		self.context.MVP_ID   = glGetUniformLocation(shader.program,"MVP")
 
-
 		self.context.vertexbuffer  = glGenBuffers(1)
 		glBindBuffer(GL_ARRAY_BUFFER,self.context.vertexbuffer)
 		glBufferData(GL_ARRAY_BUFFER,len(g_vertex_buffer_data)*4,(GLfloat * len(g_vertex_buffer_data))(*g_vertex_buffer_data),GL_STATIC_DRAW)
-
 
 		self.context.colorbuffer  = glGenBuffers(1)
 		glBindBuffer(GL_ARRAY_BUFFER,self.context.colorbuffer)
@@ -133,7 +129,7 @@ class Tu01Win(GlutWindow):
 
 	def ogl_draw(self):
 
-		print "draw++"
+		# print("draw++")
 		#print self.context.MVP
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
@@ -147,7 +143,6 @@ class Tu01Win(GlutWindow):
 		glEnableVertexAttribArray(1)
 		glBindBuffer(GL_ARRAY_BUFFER, self.context.colorbuffer)
 		glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,0,None)
-
 
 		glDrawArrays(GL_TRIANGLES, 0, 12*3) # 12*3 indices starting at 0 -> 12 triangles
 

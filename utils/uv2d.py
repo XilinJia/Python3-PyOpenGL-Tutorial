@@ -12,7 +12,7 @@ class UV2D(object):
         self.UVbuffer = uv
         self.size = size
         self.indicesbuffer =indices
-        print self.indicesbuffer
+        print(self.indicesbuffer)
     def draw(self):
         #do this without shader
         self.shader.begin()
@@ -25,7 +25,6 @@ class UV2D(object):
                  
         mode = glGetIntegerv(GL_POLYGON_MODE)         
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
-
        
         glDrawElements(
             GL_TRIANGLES,      # mode
@@ -33,7 +32,6 @@ class UV2D(object):
             GL_UNSIGNED_SHORT, #  // type
             None          #// element array buffer offset
         )	
-        
         
         glDisableVertexAttribArray(0)  
         glPolygonMode(GL_FRONT_AND_BACK, mode[0])    

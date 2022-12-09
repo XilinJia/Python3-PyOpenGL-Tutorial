@@ -9,18 +9,12 @@ from utils.shaderLoader import Shader
 
 import glm
 
-
-
-from tu_07_basic_shading import basicShading
-
+from utils.basicShading import basicShading
 
 class Draw2DText(meshWithRender):
 
     def __init__(self,text_str,x,y,Xsize,Ysize):
         (self.text_str,self.x,self.y,self.Xsize,self.Ysize ) = (text_str,x,y,Xsize,Ysize)
-        
-        
-        
 
     def loadShader(self):
         self.shader = Shader()
@@ -30,7 +24,6 @@ class Draw2DText(meshWithRender):
         self.Texture_ID = glGetUniformLocation(self.shader.program, "myTextureSampler")
     
     def loadObject(self):
-
         vertex_array = []
         uv_array = []
         lineCount =0
@@ -65,10 +58,12 @@ class Draw2DText(meshWithRender):
         glBufferData(GL_ELEMENT_ARRAY_BUFFER,len(uv_array)*4,(GLfloat * len(uv_array))(*uv_array),GL_STATIC_DRAW)
  
         self.vertex_array = vertex_array
+
     def loadTexture(self):
-            from utils.textureLoader import textureLoader
-            texture = textureLoader("resources/tu09/Holstein.DDS")	
-            self.texturebuffer = texture.textureGLID
+        from utils.textureLoader import textureLoader
+        texture = textureLoader("resources/tu09/Holstein.DDS")	
+        self.texturebuffer = texture.textureGLID
+
     def rendering(self, MVP,View,Projection):
         self.shader.begin()
 
@@ -91,8 +86,9 @@ class Draw2DText(meshWithRender):
         glDisableVertexAttribArray(0)
         glDisableVertexAttribArray(1)       
         self.shader.end() 
+
 if __name__ == "__main__":
     win = MeshViewWindow().init_default()  
-    win.add_mesh(basicShading(meshName="resources/tu04/suzanne.obj",textureName="resources/tu04/uvmap.dds"))
+    win.add_mesh(basicShading(meshName="resources/tu04/suzanne.obj",textureName="resources/tu04/uvmap.DDS"))
     win.add_mesh(Draw2DText(["enjoy it","this is the sample"],0,0,20,20))
     win.run()

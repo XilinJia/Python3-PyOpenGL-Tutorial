@@ -4,13 +4,12 @@ from OpenGL.GL import *  # pylint: disable=W0614
 from OpenGL.GLUT import *  # pylint: disable=W0614
 
 import glm
-from glutWindow import GlutWindow
-from MVPControl import MVPController
-from utils.shaderLoader import Shader
 
+from .MVPControl import MVPController
+from .shaderLoader import Shader
+from .glutWindow import GlutWindow
 
 class MeshViewWindow(GlutWindow):
-
 
     def init_opengl(self):
         glClearColor(0.1, 0.1, 0.1, 0.8)
@@ -23,7 +22,6 @@ class MeshViewWindow(GlutWindow):
 
     def init_context(self):        
         self.meshes = []
-        
 
     def calc_MVP(self,width=0,height=0):
         
@@ -35,16 +33,16 @@ class MeshViewWindow(GlutWindow):
         # self.ProjectionPtr = glm.value_ptr(self.controller.ProjectionMatrix)
 
     def resize(self,Width,Height):  
-        print "resize"      
+        print("resize")      
         glViewport(0, 0, Width, Height)
         self.calc_MVP(Width,Height)
 
     def ogl_draw(self):     
-        print "draw"    
+        # print("draw")    
         self.calc_MVP()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         for mesh in self.meshes:
-            mesh.rendering(self._MVP ,self.controller.ViewMatrix,self.controller.ProjectionMatrix)
+            mesh.rendering(self._MVP ,self.controller.ViewMatrix, self.controller.ProjectionMatrix)
             
     def processMenuEvents(self,*args,**kwargs):
         action, = args
@@ -61,7 +59,8 @@ class MeshViewWindow(GlutWindow):
         return 0
 
     def init_default(self):
-        from worldsheet import worldSheet
+        from .worldsheet import worldSheet
+
         self.controller = MVPController(self.update_if)
         self.init_opengl()
         self.init_context()    
@@ -73,7 +72,6 @@ class MeshViewWindow(GlutWindow):
         glutAddMenuEntry("Reset View",3)
         glutAttachMenu(GLUT_RIGHT_BUTTON)
         return self
-
 
 class meshWithRender(object):
 
@@ -87,11 +85,11 @@ class meshWithRender(object):
         
     def loadObject(self):
         self.mesh = None
-        print "Make and fill OPENGL buffers,vertex,uv,normal,trangent,indices"
+        print("Make and fill OPENGL buffers,vertex,uv,normal,trangent,indices")
     def loadTexture(self):
         self.texture = None
-        print "No texture for this object"
+        print("No texture for this object")
     
     def rendering(self,MVPptr,ViewPtr,ProjectionPtr):
-        print "override rendering process"
+        print("override rendering process")
         pass

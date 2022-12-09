@@ -1,7 +1,6 @@
 # import os,sys
 # sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
-
 from OpenGL.GL import *  # pylint: disable=W0614
 
 import glm
@@ -11,6 +10,9 @@ from utils.shaderLoader import Shader
 from utils.textureLoader import textureLoader
 
 import numpy as np
+ 
+# *** This one is not working: missing file
+
 class MeshUE4:
 
 	def loadMesh(self):
@@ -20,7 +22,7 @@ class MeshUE4:
 		asset = uasset.UAssetReader(ArchiveName,forceUE4Ver=513)
 		meshObj = asset.ExportsMap[1].GetObject()
 		meshObj.Serialize(asset)
-		print meshObj.properties[1].to_dict()
+		print(meshObj.properties[1].to_dict())
 		return meshObj.RenderData.LODResources[0]
 
 	def getMesh(self):
@@ -35,13 +37,13 @@ class MeshUE4:
 		# 	self.texcoords.append(float(self._texcoords[i]))
 		# 	self.texcoords.append(1.0 - float(self._texcoords[i+1]))
 		return self
-					
-		 
+
 
 class Tu01Win(GlutWindow):
 
 	class GLContext(object):
 		pass
+
 	def init_opengl(self):
 		glClearColor(0.0,0,0.4,0)
 		glDepthFunc(GL_LESS)
@@ -49,11 +51,11 @@ class Tu01Win(GlutWindow):
 		glEnable(GL_CULL_FACE)
 
 	def on_keyboard(self,key,x,y):        		
-		print "please overrider on_keyboard" 
+		print("please overrider on_keyboard") 
 	def on_mouse(self,*args,**kwargs):
-		print "please overrider on_mouse" 
+		print("please overrider on_mouse") 
 	def on_mousemove(self,*args,**kwargs):
-		print "please overrider on_mousemove" 
+		print("please overrider on_mousemove") 
 
 	def init_context(self):
 		self.context = self.GLContext()
@@ -66,7 +68,6 @@ class Tu01Win(GlutWindow):
 
 		texture = textureLoader("resources/tu05/AK-47_01_D_Fix.png")				
 		self.context.texturebuffer = texture.textureGLID
-
 					
 		model = MeshUE4().getMesh()
 		self.context.vertexbuffer  = glGenBuffers(1)
@@ -77,12 +78,10 @@ class Tu01Win(GlutWindow):
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,self.context.uvbuffer)
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER,len(model.texcoords)*4,(GLfloat * len(model.texcoords))(*model.texcoords),GL_STATIC_DRAW)
 
-
 		self.context.indices  = glGenBuffers(1)
 		self.context.indicesSize = len(model.indices)		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,self.context.indices)
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER,len(model.indices)*2,(GLushort * len(model.indices))(*model.indices),GL_STATIC_DRAW)
-
 	
 
 	def calc_MVP(self,width=1920,height=1080):
@@ -103,7 +102,7 @@ class Tu01Win(GlutWindow):
 
 	def ogl_draw(self):
 
-		print "draw++"
+		# print("draw++")
 		#print self.context.MVP
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
@@ -121,7 +120,6 @@ class Tu01Win(GlutWindow):
 		glEnableVertexAttribArray(1)
 		glBindBuffer(GL_ARRAY_BUFFER, self.context.uvbuffer)
 		glVertexAttribPointer(1,2,GL_FLOAT,GL_FALSE,0,None)
-
 		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, self.context.indices)
 		
@@ -131,7 +129,6 @@ class Tu01Win(GlutWindow):
 			GL_UNSIGNED_SHORT, #  // type
 			None          #// element array buffer offset
 		)		
-		
 
 		glDisableVertexAttribArray(0)
 		glDisableVertexAttribArray(1)

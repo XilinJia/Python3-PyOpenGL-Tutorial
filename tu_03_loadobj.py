@@ -24,21 +24,16 @@ class Tu01Win(GlutWindow):
 	def init_context(self):
 		self.context = self.GLContext()
 
-
-
 		self.shader = shader = Shader()
 		shader.initShaderFromGLSL(["glsl/tu02/vertex.glsl"],["glsl/tu02/fragment.glsl"])
 
 		self.context.MVP_ID   = glGetUniformLocation(shader.program,"MVP")
 		self.context.TextureID =  glGetUniformLocation(shader.program, "myTextureSampler")
 
-
-
-		texture = textureLoader("resources/tu03/uvmap.dds")
+		texture = textureLoader("resources/tu03/uvmap.DDS")
 		#texture = textureLoader("opengl_tutorial/models/tu02/uvtemplate.dds")
 
 		self.context.textureGLID = texture.textureGLID
-
 
 		model = objLoader("resources/tu03/cube.obj").to_array_style()
 		self.context.vertexbuffer  = glGenBuffers(1)
@@ -72,18 +67,16 @@ class Tu01Win(GlutWindow):
 
 	def ogl_draw(self):
 
-		print "draw++"
+		# print("draw++")
 		#print self.context.MVP
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
 
 		self.shader.begin()
 		glUniformMatrix4fv(self.context.MVP_ID,1,GL_FALSE,glm.value_ptr(self.context.MVP))
 
-
 		glActiveTexture(GL_TEXTURE0)
 		glBindTexture(GL_TEXTURE_2D, self.context.textureGLID)
 		glUniform1i(self.context.TextureID, 0)
-
 
 		glEnableVertexAttribArray(0)
 		glBindBuffer(GL_ARRAY_BUFFER, self.context.vertexbuffer)
@@ -93,13 +86,11 @@ class Tu01Win(GlutWindow):
 		glBindBuffer(GL_ARRAY_BUFFER, self.context.uvbuffer)
 		glVertexAttribPointer(1,2,GL_FLOAT,GL_FALSE,0,None)
 
-
 		glDrawArrays(GL_TRIANGLES, 0, 12*3) # 12*3 indices starting at 0 -> 12 triangles
 
 		glDisableVertexAttribArray(0)
 		glDisableVertexAttribArray(1)
 		self.shader.end()
-        
 
 if __name__ == "__main__":
 

@@ -71,7 +71,8 @@ class MVPControl:
         return self.ProjectionMatrix * self.ViewMatrix * modelMaterix                                  
 
 def dummyUpdate():
-    print "please implement update"
+    print("please implement update")
+
 class MVPController(MVPControl):
 
     def __init__(self,updateCallback=dummyUpdate,*args,**kwargs):
@@ -80,8 +81,9 @@ class MVPController(MVPControl):
         self.mouse_mode  = -1
         self.lastX =0 
         self.lastY =0 
+        
     def on_special_key(self,key,x,y):  
-        print key
+        print(key)
         _key = key   
         if(_key==104): #page down
             self.moveUp(1.0) 

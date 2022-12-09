@@ -9,9 +9,7 @@ from utils.shaderLoader import Shader
 
 import glm
 
-
-
-from tu_07_basic_shading import basicShading
+from utils.basicShading import basicShading
 
 # no different with tutorial 07 , only changed shader
 class AlphaShading(basicShading):
@@ -30,14 +28,10 @@ class AlphaShading(basicShading):
 class AlphaEnabledWin(MeshViewWindow):
     def init_opengl(self):
         MeshViewWindow.init_opengl(self)
-        
         glEnable(GL_BLEND)
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
-
 if __name__ == "__main__":
-
     win = AlphaEnabledWin().init_default()    
-    win.add_mesh(AlphaShading(meshName="resources/tu04/suzanne.obj",textureName="resources/tu04/uvmap.dds"))
-
+    win.add_mesh(AlphaShading(meshName="resources/tu04/suzanne.obj",textureName="resources/tu04/uvmap.DDS"))
     win.run()

@@ -10,11 +10,10 @@ from PIL import Image
 class textureLoader(object):
     
     def loadDDS(self,fname):
-        
         f = open(fname,'rb')
         ddstag =f.read(4)
         if(ddstag!="DDS "):
-            raise Exception("invp'yild dds file") 
+            raise Exception("invp'yild DDS file") 
         head =  f.read(124)
         height, = self.height = struct.unpack( "I",head[8:12])
         width, = self.width = struct.unpack( "I",head[12:16])
@@ -35,7 +34,6 @@ class textureLoader(object):
         else:
             components = 4
             blockSize  = 16
- 
 
         if(fourCC=="DXT1")  :
             format = texture_compression_s3tc.GL_COMPRESSED_RGBA_S3TC_DXT1_EXT
@@ -43,7 +41,6 @@ class textureLoader(object):
             format = texture_compression_s3tc.GL_COMPRESSED_RGBA_S3TC_DXT3_EXT
         elif(fourCC=="DXT5")  :
             format = texture_compression_s3tc.GL_COMPRESSED_RGBA_S3TC_DXT5_EXT
-
         
         if(mipMapCount>1 ):
             bufferSize = linearSize*2
@@ -68,7 +65,6 @@ class textureLoader(object):
         self.inversedVCoords = True
         f.close()
 
-
     def loadByPIL(self,fname,mode):
         image = Image.open(fname)
         converted = image.convert(mode)        
@@ -91,7 +87,7 @@ class textureLoader(object):
     def __init__(self,fname,mode="RGB"):
         self.inversedVCoords = False
         fname =  os.path.abspath(os.path.join(os.path.join(os.path.dirname(__file__),".."),fname))
-        if(fname.lower().endswith(".dds")):
+        if(fname.lower().endswith(".DDS")):
             self.loadDDS(fname)
         else:
             self.loadByPIL(fname,mode)    
